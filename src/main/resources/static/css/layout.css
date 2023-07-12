@@ -1,0 +1,102 @@
+@charset "UTF-8";
+
+/* ヘッダー */
+.nav-item p{
+	margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.nav-item.align-middle.text-white,.user-icon{
+	margin-right: 15px;
+}
+
+.navbar-nav{
+	flex-direction: row;
+}
+
+/* トップページ */
+
+.toppage-container {
+	margin-right: 80rem;
+}
+
+.toppage-container.float-end a {
+	font-size: x-large;
+    text-decoration: none;
+}
+
+.post-container {
+	margin-top: 1.5rem;
+	margin-right: 25px;
+}
+
+.post-result, .postid{
+	margin-top: 6rem;
+}
+
+.admin.float-end {
+	margin-bottom: 1rem;
+}
+
+/* 詳細画面 */
+.post-detail {
+	text-align: center;
+}
+
+/* 全体的なレイアウト */
+div.form-group label {
+	color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    margin-left: 15rem;
+    margin-right: 15rem;
+    width: -webkit-fill-available;
+}
+
+div.form-group p {
+	color: #fff;
+    background-color: #568097;
+    border-color: #568097;
+    margin-left: 15rem;
+    margin-right: 15rem;
+}
+
+/* サイドバー */
+
+.sidebar ul{
+	padding-left:0;
+	border-top: solid 1px #3dbfb8;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar li{
+	list-style:none;
+	padding: 10px 15px;
+    background: #e3f6f5;
+    border-bottom: solid 1px #3dbfb8;
+}
+
+.sidebar {
+	position: absolute;
+    background: antiquewhite;
+    margin-top: -41.35rem;
+    width: 15rem;
+    text-align: center;
+    font-size: xx-large;
+}
+
+.sidebar ul li.logout form button.logout_btn{
+	cursor: pointer;
+  	border: none;
+  	background: none;
+  	color: #0d6efd;
+}
+
+.sidebar ul li a {
+	text-decoration: none!important;
+}
+
+.sidebar.favorite {
+	margin-top: 0.5rem;
+}

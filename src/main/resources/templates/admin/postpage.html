@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="common/head :: head_fragment(title = '投稿画面', scripts = ~{::script}, links = ~{::link})"></head>
+<body>
+  <!-- ヘッダー -->
+  <nav class="navbar navbar-light bg-info">
+    <div class="container-fluid">
+      <a class="navbar-brand"><h1>投稿画面</h1></a>
+      <div class="toppage-container float-end">
+		<a th:href="@{/toppage}">HOME</a>
+      </div>
+  	  <ul class="navbar-nav align-items-center">
+        <li class="nav-item align-middle text-white"><p>こんにちは<span sec:authentication="name">user name</span>さん</p></li>
+        <li class="nav-item align-middle user-icon">
+			<a th:href="@{/user/mypage}">
+				<img th:src="${base64AccountIcon}" th:width="50px" th:height="50px">
+			</a>
+		</li>
+        <li class="nav-item align-middle">
+		  <form th:action="@{/logout}" method="post">
+            <input type="submit" class="btn btn-primary" name="logout" value="ログアウト"/>
+          </form>
+		</li>
+      </ul>
+    </div>
+  </nav>
+  <div class="post-container float-end">
+	<a th:href="@{/admin/admin}" class="btn btn-primary">管理ページへ</a>
+  </div>
+  <br>
+  <!-- 登録フォーム  -->
+      <div class="container">
+        <form th:action="@{/admin/postpage}" th:method="post" th:object="${postAddRequest}" enctype="multipart/form-data">
+			 <!-- 投稿名 -->
+            <div class="admin-post-form">
+                <label for="postName">投稿名：<span class="text-danger">※</span></label>
+                <p><span th:if="${#fields.hasErrors('postName')}" th:errors="*{postName}" class="error-message text-danger"></span></p>
+                <input type="text" th:field="*{postName}" name="postName" class="form-control">
+            </div>
+            <!-- ジャンル -->
+            <div class="admin-post-form">
+                <label for="genre">ジャンル：</label>
+                <div class="col-xs-3">
+                  <select class="form-control" th:field="*{genre}" id="number" name="number">
+                    <option value="グルメ">グルメ</option>
+                    <option value="遊び">遊び</option>
+                    <option value="観光">観光</option>
+                </select>
+            </div>
+             <!-- 郵便番号(住所自動入力) -->
+            <div class="admin-post-form">
+				<label style="display:block">郵便番号：<span class="text-danger">※</span></label>
+				<p><span th:if="${#fields.hasErrors('postal1')}" th:errors="*{postal1}" class="error-message text-danger"></span></p>
+				<p><span th:if="${#fields.hasErrors('postal2')}" th:errors="*{postal2}" class="error-message text-danger"></span></p>
+				<input type="text" th:field="*{postal1}" name="postal1" size="3">-<input type="text" th:field="*{postal2}" name="postal2" size="4"
+			onKeyUp="AjaxZip3.zip2addr('postal1', 'postal2', 'address', 'address');">
+			</div>            
+			 <!-- 住所 -->
+           <div class="admin-post-form">
+                <label for="address">住所：<span class="text-danger">※</span></label>
+                <p><span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error-message text-danger"></span></p>
+                <input type="text" class="form-control" th:field="*{address}" name="address">
+            </div>
+             <!-- 電話番号 -->
+            <div class="admin-post-form">
+                <label>電話番号：<span class="text-danger">※</span></label>
+                <p><span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error-message text-danger"></span></p>
+                <input type="text" th:field="*{phone}" name="phone" class="form-control">
+            </div>
+             <!-- 添付画像 -->
+            <div class="admin-post-form">
+                <label for="fileimage">画像：</label>
+                <input type="file" th:field="*{postImage}" id="fileimage" name="image" class="form-control" accept="image/png, image/jpg">
+            </div>
+            <!-- 投稿内容 -->
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">投稿内容：</label>
+                  <textarea class="form-control" th:field="*{message}" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <br />
+            <div class="text-center">
+                <input type="submit" value="投稿" class="btn btn-primary">
+                <a href="/admin/admin" class="btn btn-secondary">キャンセル</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

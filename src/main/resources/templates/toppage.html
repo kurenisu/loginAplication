@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="common/head :: head_fragment(title = 'トップページ', scripts = ~{::script}, links = ~{::link})"></head>
+<body>
+  <!-- ヘッダー -->
+  <nav class="navbar navbar-light bg-info">
+    <div class="container-fluid">
+      <a class="navbar-brand"><h1>トップ画面</h1></a>
+      <div class="toppage-container float-end">
+		<a th:href="@{/toppage}">HOME</a>
+      </div>
+  	  <ul class="navbar-nav align-items-center">
+        <li class="nav-item align-middle text-white"><p>こんにちは<span sec:authentication="name">user name</span>さん</p></li>
+        <li class="nav-item align-middle user-icon">
+			<a th:href="@{/user/mypage}">
+				<img th:src="${base64AccountIcon}" th:width="50px" th:height="50px">
+			</a>
+		</li>
+        <li class="nav-item align-middle">
+		  <form th:action="@{/logout}" method="post">
+            <input type="submit" class="btn btn-primary" name="logout" value="ログアウト"/>
+          </form>
+		</li>
+      </ul>
+    </div>
+  </nav>
+  <br>
+  <div sec:authorize="hasRole('ROLE_ADMIN')" class="admin float-end" style="width:138px;">
+	<a th:href="@{/admin/admin}" class="btn btn-primary">管理者ページ</a>
+  </div>
+  <br>
+  <div th:if="${postlist}">
+	  <table class="table table-striped">
+		  <tbody>
+			  <tr th:each="post : ${postlist}" th:object="${post}" class="align-middle">
+				  <td>
+					  <a th:href="@{/{postId}/toppage(postId=*{postId})}">☆</a>
+				  </td>
+				  <td>
+					  <div th:if="${post.postImageView}"><img th:src="*{postImageView}" th:width="300px" th:height="300px" alt="画像"></img></div>
+				  </td>                        
+                  <td th:text="*{postName}"></td>
+                  <td th:text="*{message}"></td>
+                  <td>
+					  <a th:href="@{/{postId}/postinfo(postId=*{postId})}" class="btn btn-primary">詳細</a>
+                  </td>
+              </tr>
+          </tbody>
+     </table>
+  </div>
+  <br>
+</body>
+</html>

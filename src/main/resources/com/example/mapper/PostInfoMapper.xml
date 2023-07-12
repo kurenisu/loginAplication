@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.PostInfoMapper">
+
+    <select id="findAll" resultType="com.example.entity.PostInfo">
+    	SELECT * FROM daikoudb.post_table WHERE delete_date IS NULL
+    </select>
+    
+    <select id="findId" resultType="com.example.entity.PostInfo">
+    	SELECT post_id FROM daikoudb.post_table WHERE delete_date IS NULL
+    </select>
+    
+    <select id="findById" resultType="com.example.entity.PostInfo">
+    	SELECT * FROM daikoudb.post_table WHERE post_id=#{postId} AND delete_date IS NULL
+    </select>
+    
+    <!-- 新規登録 -->
+    <insert id="save">
+        INSERT INTO daikoudb.post_table
+            (post_name, post_code, address, phone, genre, message, post_image, update_date, create_date)
+        VALUES
+            (#{postName}, #{postCode}, #{address}, #{phone}, #{genre}, #{message, jdbcType=VARCHAR},
+             #{postImage, jdbcType=BLOB}, 
+             CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    </insert>
+    
+            <!-- 更新 -->
+    <update id="update">
+        UPDATE daikoudb.post_table SET post_name = #{postName}, genre = #{genre}, post_code = #{postCode}, address = #{address}, phone = #{phone}, message = #{message, jdbcType=VARCHAR}, post_image = #{postImage, jdbcType=BLOB}, update_date = CURRENT_TIMESTAMP WHERE post_id = #{postId}
+    </update>
+    
+        <!-- 論理削除 -->
+    <update id="delete">
+        UPDATE daikoudb.post_table SET delete_date = CURRENT_TIMESTAMP WHERE post_id = #{postId}
+    </update>
+
+</mapper>

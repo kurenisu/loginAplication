@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head :: head_fragment(title = 'ログイン', scripts = ~{::script}, links = ~{::link})">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+</head>
+<body class="bg-light">
+	<!--新規登録 -->
+	<h1 class="mx-auto" style="width:125px;">ログイン</h1>
+	<form action="#" th:action="@{/login}"  method="post">
+            <!--/* エラーメッセージ */-->
+            <div class="mx-auto" style="width:250px;">
+				<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
+                th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+                ログインエラーメッセージ</p>
+            </div>
+		<div class="container my-1">
+			    <div class="row m-3">
+			    	<div class="col-md-4"></div>
+					<div class="col-md-4">
+						<input type="text" id="accountId" name="accountId" class="form-control" placeholder="ユーザID" required autofocus>
+					</div>
+					<div class="col-md-4"></div>
+			    </div>
+				<div class="row m-3">
+					<div class="col-md-4"></div>
+					<div class="col-md-4">
+						<input type="password" id="pw" name="pw" class="form-control" placeholder="パスワード" required>
+					</div>
+					<div class="col-md-4"></div>
+				</div>
+				<div class="row m-3">
+					<div class="col-md-4"></div>
+					<div class="col-md-4 mx-auto" style="width:118px;">
+				       <button class=" btn btn-lg btn-primary btn-block" type="submit">ログイン</button>
+					</div>
+					<div class="col-md-4"></div>
+				</div>
+		</div>
+	</form>
+	<div class="mx-auto" style="width:138px;">
+		<a th:href="@{/signup}" class="btn btn-primary">新規登録はこちら</a>
+    </div>
+
+</body>
+</html>

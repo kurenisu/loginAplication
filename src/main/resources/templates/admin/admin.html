@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="common/head :: head_fragment(title = 'トップページ', scripts = ~{::script}, links = ~{::link})"></head>
+<body>
+  <nav class="navbar navbar-light bg-info">
+    <div class="container-fluid">
+      <a class="navbar-brand"><h1>管理ページ</h1></a>
+      <div class="toppage-container float-end">
+		<a th:href="@{/toppage}">HOME</a>
+      </div>
+  	  <ul class="navbar-nav align-items-center">
+        <li class="nav-item align-middle text-white"><p>こんにちは<span sec:authentication="name">user name</span>さん</p></li>
+        <li class="nav-item align-middle user-icon">
+			<a th:href="@{/user/mypage}">
+				<img th:src="${base64AccountIcon}" th:width="50px" th:height="50px">
+			</a>
+		</li>
+        <li class="nav-item align-middle">
+		  <form th:action="@{/logout}" method="post">
+            <input type="submit" class="btn btn-primary" name="logout" value="ログアウト"/>
+          </form>
+		</li>
+      </ul>
+    </div>
+  </nav>
+  <div class="post-container float-end">
+	<a th:href="@{/admin/postpage}" class="btn btn-primary">記事を投稿</a>
+  </div>
+  
+  <!-- 投稿内容 -->
+  <div th:if="${postIdList}" class="container postid">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <td th:each="postinfo : ${postIdList}" th:object="${postinfo}"><a th:href="@{/admin/{postId}/postdetail(postId=*{postId})}"><p th:text="*{postId}"></p></a></td>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  
+</body>
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.AccountMapper">
+
+    <select id="getAccount" resultType="com.example.entity.LoginAccount">
+        SELECT
+            daikoudb.login_account.account_id, daikoudb.login_account.password,daikoudb.login_account.account_lock,
+            daikoudb.login_account.account_expiration_date,daikoudb.login_account.password_expiration_date,
+            daikoudb.login_account.create_date,daikoudb.login_account.update_date,daikoudb.roles.role_name
+         FROM
+            daikoudb.login_account
+            inner join daikoudb.user_roles
+            	on daikoudb.login_account.account_id = daikoudb.user_roles.account_id
+            inner join daikoudb.roles
+            	on daikoudb.roles.role_id = daikoudb.user_roles.role_id
+         WHERE
+			daikoudb.login_account.account_id = #{accountId}
+			
+<!--			SELECT-->
+<!--				*-->
+<!--			FROM-->
+<!--				daikoudb.login_account-->
+<!--			WHERE-->
+<!--				account_id = #{accountId}-->
+    </select>
+    
+    <!-- 新規登録 -->
+    <insert id="save">
+        INSERT INTO daikoudb.login_account
+            (account_id, password, post_code, address, phone, sex, icon_image, update_date, create_date, account_lock, account_expiration_date, password_expiration_date)
+        VALUES
+            (#{accountId}, #{password}, #{postCode}, #{address}, #{phone}, #{sex},
+             #{iconImage, jdbcType=BLOB}, 
+             CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{accountLock}, #{accountExpirationDate}, #{passwordExpirationDate})
+    </insert>
+    
+    <insert id="roleSave">
+        INSERT INTO daikoudb.user_roles
+            (account_id, role_id)
+        VALUES
+            (#{accountId}, 2)
+    
+    </insert>
+
+</mapper>

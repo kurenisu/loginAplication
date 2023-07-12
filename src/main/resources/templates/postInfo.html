@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="common/head :: head_fragment(title = '詳細画面', scripts = ~{::script}, links = ~{::link})"></head>
+<body>
+  <!-- ヘッダー -->
+  <nav class="navbar navbar-light bg-info">
+    <div class="container-fluid">
+      <a class="navbar-brand"><h1>詳細画面</h1></a>
+      <div class="toppage-container float-end">
+		<a th:href="@{/toppage}">HOME</a>
+      </div>
+  	  <ul class="navbar-nav align-items-center">
+        <li class="nav-item align-middle text-white"><p>こんにちは<span sec:authentication="name">user name</span>さん</p></li>
+        <li class="nav-item align-middle user-icon">
+			<a th:href="@{/user/mypage}">
+				<img th:src="${base64AccountIcon}" th:width="50px" th:height="50px">
+			</a>
+		</li>
+        <li class="nav-item align-middle">
+		  <form th:action="@{/logout}" method="post">
+            <input type="submit" class="btn btn-primary" name="logout" value="ログアウト"/>
+          </form>
+		</li>
+      </ul>
+    </div>
+  </nav>
+  <div class="post-container float-end">
+	<a th:href="@{/toppage}" class="btn btn-primary">HOMEへ</a>
+  </div>
+  <br>
+  <div th:object="${postInfo}" class="container post-detail">
+     <input type="hidden" th:field="*{postId}" />
+        <!-- 投稿画像 -->
+        <div class="form-group">
+           <div th:if="${postInfo.postImageView}"><img th:src="*{postImageView}" th:width="300px" th:height="300px" alt="画像"></img></div>
+        </div>
+        <br>
+		<!-- 投稿名 -->
+        <div class="form-group">
+           <label>投稿名</label>
+           <p th:text="*{postName}"></p>
+        </div>
+        <!-- ジャンル -->
+        <div class="form-group">
+           <label>ジャンル</label>
+           <p th:text="*{genre}">
+        </div>
+        <!-- 郵便番号 -->
+        <div class="form-group">
+		   <label for="post" style="display:block">郵便番号</label>
+		   <p th:text="*{postal1} + '-' + *{postal2}"></p>
+		</div>
+		<!-- 住所 -->                
+        <div class="form-group">
+           <label for="address">住所</label>
+           <p th:text="*{address}"></p>
+        </div>
+        <!-- 電話番号 -->
+        <div class="form-group">
+           <label>電話番号</label>
+           <p th:text="*{phone}"></p>
+        </div>
+        <!-- 投稿内容 -->
+        <div class="form-group">
+           <label>投稿内容</label>
+           <p th:text="*{message}"></p>
+        </div>
+        <br>
+  </div>
+  <br />
+</body>
+</html>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.FavoriteInfoMapper">
+    
+    <select id="findByFavorite" resultType="com.example.entity.FavoriteInfo">
+    	SELECT * FROM daikoudb.favorite_table WHERE account_id = #{accountId} AND post_id = #{postId} AND delete_date IS NULL
+    </select>
+    
+        <!-- 新規登録 -->
+    <insert id="save">
+        INSERT INTO daikoudb.favorite_table
+            (account_id, post_id)
+        VALUES
+            (#{accountId}, #{postId})
+    </insert>
+    
+    <select id="findByAllFavorite" resultType="com.example.entity.FavoriteInfo">
+    	SELECT 
+    		daikoudb.post_table.post_id, daikoudb.post_table.post_name, daikoudb.post_table.post_id, daikoudb.post_table.genre, 
+    		daikoudb.post_table.post_code, daikoudb.post_table.address, daikoudb.post_table.phone, daikoudb.post_table.message,
+    		daikoudb.post_table.post_image, a.account_id
+    	 FROM 
+    		daikoudb.post_table
+    		inner join daikoudb.favorite_table as f
+    			on daikoudb.post_table.post_id = f.post_id
+    		inner join daikoudb.login_account as a
+    			on a.account_id = f.account_id
+    	WHERE 
+    		a.account_id = #{accountId} AND daikoudb.post_table.delete_date IS NULL
+    </select>
+
+</mapper>
