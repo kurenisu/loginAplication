@@ -34,5 +34,11 @@ public interface UserInfoMapper {
       * @param UserAccountUpdateRequest 更新用リクエストデータ
       */
      void update(UserInfo userAccountUpdateRequest);
+     
+     /**
+      * ユーザー情報の論理削除
+      * @param accountId ID
+      */
+     void delete(String accountId);
 
 }

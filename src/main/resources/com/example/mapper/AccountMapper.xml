@@ -16,14 +16,8 @@
             inner join daikoudb.roles
             	on daikoudb.roles.role_id = daikoudb.user_roles.role_id
          WHERE
-			daikoudb.login_account.account_id = #{accountId}
+			daikoudb.login_account.account_id = #{accountId} AND daikoudb.login_account.delete_date IS NULL
 			
-<!--			SELECT-->
-<!--				*-->
-<!--			FROM-->
-<!--				daikoudb.login_account-->
-<!--			WHERE-->
-<!--				account_id = #{accountId}-->
     </select>
     
     <!-- 新規登録 -->

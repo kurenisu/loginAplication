@@ -24,17 +24,20 @@
       </ul>
     </div>
   </nav>
-  <div th:if="${favoritelist}">
-	  <table class="table table-striped">
+  <br>
+  <div th:if="${favoritelist}" class="container post-detail">
+	  <div><p><span sec:authentication="name">user name</span>さんのお気に入りリスト</p></div>
+	  <table class="table table-striped user-td">
 		  <tbody>
 			  <tr th:each="favo : ${favoritelist}" th:object="${favo}" class="align-middle">
-				  <td>
+				  <td class="image">
 					  <div th:if="${favo.postImageView}"><img th:src="*{postImageView}" th:width="300px" th:height="300px" alt="画像"></img></div>
 				  </td>                        
-                  <td th:text="*{postName}"></td>
-                  <td th:text="*{message}"></td>
-                  <td>
+                  <td class="name" th:text="*{postName}"></td>
+                  <td class="ellipsis" th:text="*{message}"></td>
+                  <td class="button">
 					  <a th:href="@{/{postId}/postinfo(postId=*{postId})}" class="btn btn-primary">詳細</a>
+					  <a th:href="@{/user/{postId}/favorite(postId=*{postId})}" class="btn btn-secondary">お気に入り解除</a>
                   </td>
               </tr>
           </tbody>

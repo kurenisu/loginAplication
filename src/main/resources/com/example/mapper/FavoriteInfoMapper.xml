@@ -5,16 +5,21 @@
 <mapper namespace="com.example.mapper.FavoriteInfoMapper">
     
     <select id="findByFavorite" resultType="com.example.entity.FavoriteInfo">
-    	SELECT * FROM daikoudb.favorite_table WHERE account_id = #{accountId} AND post_id = #{postId} AND delete_date IS NULL
+    	SELECT * FROM daikoudb.favorite_table WHERE account_id = #{accountId} AND post_id = #{postId}
     </select>
     
         <!-- 新規登録 -->
     <insert id="save">
         INSERT INTO daikoudb.favorite_table
-            (account_id, post_id)
+            (account_id, post_id, favorite_flag)
         VALUES
-            (#{accountId}, #{postId})
+            (#{accountId}, #{postId}, #{favoriteFlag})
     </insert>
+    
+    <!-- 更新 -->
+    <update id="update">
+        UPDATE daikoudb.favorite_table SET favorite_flag = #{favoriteFlag} WHERE account_id = #{accountId} AND post_id = #{postId}
+    </update>
     
     <select id="findByAllFavorite" resultType="com.example.entity.FavoriteInfo">
     	SELECT 
@@ -28,7 +33,7 @@
     		inner join daikoudb.login_account as a
     			on a.account_id = f.account_id
     	WHERE 
-    		a.account_id = #{accountId} AND daikoudb.post_table.delete_date IS NULL
+    		a.account_id = #{accountId} AND f.favorite_flag = 1
     </select>
 
 </mapper>

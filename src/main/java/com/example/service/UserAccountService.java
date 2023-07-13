@@ -60,6 +60,14 @@ public class UserAccountService {
     }
     
     /**
+     * ユーザー情報論理削除
+     * @param id
+     */
+    public void delete(String accountId) {
+        userInfoMapper.delete(accountId);
+    }
+    
+    /**
      * ユーザーアイコン検索
      * @param id リクエストデータ
      */

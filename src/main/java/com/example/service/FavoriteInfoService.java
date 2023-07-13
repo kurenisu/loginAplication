@@ -33,14 +33,23 @@ public FavoriteInfo findByFavorite(String accountId, Long postId) throws IOExcep
  * お気に入り情報登録
  * @param favoriteAddRequest リクエストデータ
  */
-public void save(FavoriteInfo favoriteInfoAddRequest) {
+public void saveAndUpdate(FavoriteInfo favoriteInfoAddRequest) {
 	System.out.println("favorite_save1:" + favoriteInfoAddRequest);
 	FavoriteInfo result = favoriteInfoMapper.findByFavorite(favoriteInfoAddRequest.getAccountId(), favoriteInfoAddRequest.getPostId());
 	System.out.println("favorite_save2:" + result);
 	if(result == null) {
+		favoriteInfoAddRequest.setFavoriteFlag(true);
 		favoriteInfoMapper.save(favoriteInfoAddRequest);
 	} else {
-		System.out.println("favorite_save3:" + result);
+		if(!result.getFavoriteFlag()) {
+			System.out.println("favorite_save3:" + result.getFavoriteFlag());
+			favoriteInfoAddRequest.setFavoriteFlag(true);
+			favoriteInfoMapper.update(favoriteInfoAddRequest);			
+		} else {
+			System.out.println("favorite_save3:" + result.getFavoriteFlag());
+			favoriteInfoAddRequest.setFavoriteFlag(false);
+			favoriteInfoMapper.update(favoriteInfoAddRequest);
+		}
 	}
 }
 

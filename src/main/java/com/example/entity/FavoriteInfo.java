@@ -3,12 +3,17 @@ package com.example.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
+
 import lombok.Data;
 
 /**
  * お気に入り情報 Entity
  */
 @Data
+@Component
+@SessionScope
 public class FavoriteInfo implements Serializable{
 	
     /**

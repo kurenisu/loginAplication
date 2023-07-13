@@ -30,14 +30,14 @@
   </div>
   <br>
   <div th:if="${postlist}">
-	  <table class="table table-striped">
+	  <table class="table table-striped top-td">
 		  <tbody>
 			  <tr th:each="post : ${postlist}" th:object="${post}" class="align-middle">
 				  <td>
 					  <a th:href="@{/{postId}/toppage(postId=*{postId})}">☆</a>
 				  </td>
 				  <td>
-					  <div th:if="${post.postImageView}"><img th:src="*{postImageView}" th:width="300px" th:height="300px" alt="画像"></img></div>
+					  <div th:if="${post.postImageView}"><img th:src="*{postImageView}" th:width="300px" th:height="250px" alt="画像"></img></div>
 				  </td>                        
                   <td th:text="*{postName}"></td>
                   <td th:text="*{message}"></td>

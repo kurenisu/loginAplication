@@ -26,6 +26,12 @@ public interface FavoriteInfoMapper {
      void save(FavoriteInfo favoriteAddRequest);
      
      /**
+      * お気に入り情報更新
+      * @param FavoriteAddRequest 更新用リクエストデータ
+      */
+     void update(FavoriteInfo favoriteAddRequest);
+     
+     /**
       * お気に入り情報全件検索
       * @param accountId, postId 
       * @return 検索結果

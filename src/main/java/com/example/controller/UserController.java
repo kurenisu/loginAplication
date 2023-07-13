@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,6 +52,9 @@ public class UserController {
 	private UserInfo user;
 	
 	@Autowired
+	private List<FavoriteInfo> info;
+	
+	@Autowired
 	private ModelMapper modelMapper;
 	
 	Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -80,7 +84,7 @@ public class UserController {
 	public String favorite(Model model, Authentication auth) throws IOException {
         model.addAttribute("base64AccountIcon",user.getIconImageView().toString());
         
-		List<FavoriteInfo> info = favoriteInfoService.findByAllFavorite(auth.getName());
+		info = favoriteInfoService.findByAllFavorite(auth.getName());
 		
         StringBuffer data;
         
@@ -103,6 +107,22 @@ public class UserController {
         model.addAttribute("favoritelist", info);
         
 		return "/user/favorite";
+	}
+	
+    /**
+     * お気に入りボタン
+     * @return トップ画面
+     * @throws IOException 
+     */
+	@GetMapping("/user/{id}/favorite")
+	public String favoriteDelete(@PathVariable Long id, Model model, Authentication auth, FavoriteInfo favorite) throws IOException {
+		favorite.setAccountId(auth.getName());
+		favorite.setPostId(id);
+		System.out.println("fav:"+favorite);
+		favoriteInfoService.saveAndUpdate(favorite);
+		model.addAttribute("base64AccountIcon", user.getIconImageView().toString());
+		model.addAttribute("favoritelist", info);
+		return "redirect:/user/favorite";
 	}
 	
     /**
@@ -162,6 +182,20 @@ public class UserController {
         // ユーザー情報の更新
         userAccountService.update(info);
         return "redirect:/user/mypage";
+    }
+    
+    /**
+     * ユーザー情報削除（論理削除）
+     * @param id ID
+     * @param model Model
+     * @return 管理画面
+     */
+    @GetMapping("/user/{id}/accountdelete")
+    public String delete(@PathVariable String id, Model model) {
+    	System.out.println(id);
+        // ユーザー情報の削除
+        userAccountService.delete(id);
+        return "redirect:/login";
     }
 	
 }

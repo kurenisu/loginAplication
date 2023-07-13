@@ -164,7 +164,7 @@ public class loginController {
 	public String favoriteBtn(@PathVariable Long id, Model model, Authentication auth, FavoriteInfo favorite) throws IOException {
 		favorite.setAccountId(auth.getName());
 		favorite.setPostId(id);
-		favoriteInfoService.save(favorite);
+		favoriteInfoService.saveAndUpdate(favorite);
 		model.addAttribute("base64AccountIcon", user.getIconImageView().toString());
 		model.addAttribute("postlist", post);
 		return "/toppage";

@@ -32,7 +32,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <td th:each="postinfo : ${postIdList}" th:object="${postinfo}"><a th:href="@{/admin/{postId}/postdetail(postId=*{postId})}"><p th:text="*{postId}"></p></a></td>
+          <td class="admin-td" th:each="postinfo : ${postIdList}" th:object="${postinfo}"><a th:href="@{/admin/{postId}/postdetail(postId=*{postId})}"><p th:text="*{postId}"></p></a></td>
         </tr>
       </thead>
     </table>

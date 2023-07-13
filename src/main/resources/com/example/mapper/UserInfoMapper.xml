@@ -20,5 +20,10 @@
     <update id="update">
         UPDATE daikoudb.login_account SET account_id = #{accountId}, sex = #{sex}, post_code = #{postCode}, address = #{address}, phone = #{phone}, password = #{password}, icon_image = #{iconImage, jdbcType=BLOB}, update_date = CURRENT_TIMESTAMP WHERE account_id = #{accountId}
     </update>
+    
+    <!-- 論理削除 -->
+    <update id="delete">
+        UPDATE daikoudb.login_account SET delete_date = CURRENT_TIMESTAMP WHERE account_id = #{accountId}
+    </update>
 
 </mapper>
