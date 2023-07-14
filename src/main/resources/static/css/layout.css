@@ -31,7 +31,6 @@
 	 width:15rem!important;
   	 height:100px;
   	 margin:5px;
-/*  	 background:gold;*/
   	 box-sizing:border-box;
   	 text-align:center;
   	 line-height:75px;
@@ -142,7 +141,7 @@ div.form-group p {
 }
 
 .sidebar {
-	position: absolute;
+	position: fixed;
     background: antiquewhite;
     margin-top: -41.35rem;
     width: 15rem;
@@ -161,8 +160,7 @@ div.form-group p {
 	text-decoration: none!important;
 }
 
-.sidebar.favorite {
+.sidebar.favorite, .sidebar.mypage{
 	top: 47rem;
     left: 0;
-	position: fixed;
 }

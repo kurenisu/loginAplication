@@ -23,11 +23,11 @@
     <!-- 新規登録 -->
     <insert id="save">
         INSERT INTO daikoudb.login_account
-            (account_id, password, post_code, address, phone, sex, icon_image, update_date, create_date, account_lock, account_expiration_date, password_expiration_date)
+            (account_id, password, post_code, address, phone, sex, icon_image, update_date, create_date, delete_date, account_lock, account_expiration_date, password_expiration_date)
         VALUES
             (#{accountId}, #{password}, #{postCode}, #{address}, #{phone}, #{sex},
              #{iconImage, jdbcType=BLOB}, 
-             CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{accountLock}, #{accountExpirationDate}, #{passwordExpirationDate})
+             CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{deleteDate, jdbcType=TIMESTAMP}, #{accountLock}, #{accountExpirationDate}, #{passwordExpirationDate})
     </insert>
     
     <insert id="roleSave">

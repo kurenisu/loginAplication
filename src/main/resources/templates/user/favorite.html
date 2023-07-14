@@ -36,7 +36,7 @@
                   <td class="name" th:text="*{postName}"></td>
                   <td class="ellipsis" th:text="*{message}"></td>
                   <td class="button">
-					  <a th:href="@{/{postId}/postinfo(postId=*{postId})}" class="btn btn-primary">詳細</a>
+					  <a th:href="@{/{postId}/postInfo(postId=*{postId})}" class="btn btn-primary">詳細</a>
 					  <a th:href="@{/user/{postId}/favorite(postId=*{postId})}" class="btn btn-secondary">お気に入り解除</a>
                   </td>
               </tr>

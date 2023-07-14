@@ -74,9 +74,10 @@ public class UserAccountService {
     public String findByIcon(String id) throws IOException {
     	System.out.println("id:" + id);
     	UserInfo user = userInfoMapper.findByIcon(id);
-        
+    	System.out.println("アイコンデータ:" + user);        
         if(user == null) {
         	user = userInfoMapper.findByDefaultIcon();
+        	System.out.println("デフォルトアイコン:" + user);  
         	user.setIconImageView(imageEncoder(user.getIconImage()));
     		
         } else if(user.getIconImage() != null) {

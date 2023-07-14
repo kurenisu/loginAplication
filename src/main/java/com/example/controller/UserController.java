@@ -72,7 +72,7 @@ public class UserController {
         UserInfo result = userAccountService.findAll(auth.getName());
         System.out.println(result);
         model.addAttribute("user", result);
-		return "/user/mypage";
+		return "user/mypage";
 	}
 
     /**
@@ -106,7 +106,7 @@ public class UserController {
         }
         model.addAttribute("favoritelist", info);
         
-		return "/user/favorite";
+		return "user/favorite";
 	}
 	
     /**
@@ -143,7 +143,7 @@ public class UserController {
         userAccountUpdateRequest.setPassword("");
         model.addAttribute("userAccountUpdateRequest", userAccountUpdateRequest);
         model.addAttribute("base64AccountIcon",user.getIconImageView().toString());
-		return "/user/useredit";
+		return "user/useredit";
 	}
 	
     /**

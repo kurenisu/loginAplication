@@ -60,7 +60,7 @@ public class AdminController {
 		List<PostInfo> postIdList = postInfoService.findId();
         model.addAttribute("base64AccountIcon",user.getIconImageView().toString());
         model.addAttribute("postIdList", postIdList);
-		return "/admin/admin";
+		return "admin/admin";
 	}
 	
     /**
@@ -70,7 +70,7 @@ public class AdminController {
 	@GetMapping("/admin/postpage")
 	public String postpage(@ModelAttribute PostAddRequest postAddRequest, Model model) {
         model.addAttribute("base64AccountIcon",user.getIconImageView().toString());
-		return "/admin/postpage";
+		return "admin/postpage";
 	}
 	
     /**
@@ -103,7 +103,7 @@ public class AdminController {
 		logger.info("postresult is {}", post);
         model.addAttribute("base64AccountIcon",user.getIconImageView().toString());
         model.addAttribute("postDetail", post);
-        return "/admin/postdetail";
+        return "admin/postdetail";
     }
 	
     /**
@@ -126,7 +126,7 @@ public class AdminController {
         postUpdateRequest.setGenre(postEdit.getGenre());
         model.addAttribute("postUpdateRequest", postUpdateRequest);
         model.addAttribute("base64AccountIcon",user.getIconImageView().toString());
-        return "/admin/postedit";
+        return "admin/postedit";
     }
 	
     /**

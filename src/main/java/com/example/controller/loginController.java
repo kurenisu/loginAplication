@@ -79,6 +79,7 @@ public class loginController {
 	public String toppage(Model model, Authentication auth) throws IOException {
 		post = postInfoService.findAll();
 		user.setIconImageView(userAccountService.findByIcon(auth.getName()));
+		System.out.println(userAccountService);
 		
         model.addAttribute("base64AccountIcon",user.getIconImageView().toString());
         
@@ -101,7 +102,7 @@ public class loginController {
         	}
         }
         model.addAttribute("postlist", post);
-		return "/toppage";
+		return "toppage";
 	}
 		
     /**
@@ -110,9 +111,10 @@ public class loginController {
      * @param model Model
      * @return 投稿詳細画面
      */
-    @GetMapping("/{id}/postinfo")
+    @GetMapping("/{id}/postInfo")
     public String displayInfo(@PathVariable Long id, Model model) {
         PostInfo post = postInfoService.findById(id);
+    	System.out.println("投稿情報1:"+post.getPostId());
         
         post.setPostal1(post.getPostCode().substring(0,3));
         post.setPostal2(post.getPostCode().substring(3));
@@ -131,9 +133,11 @@ public class loginController {
     		data.append(base64);
     		post.setPostImageView(data.toString());
     	}
+    	System.out.println("投稿情報2:"+post.getPostId());
         model.addAttribute("base64AccountIcon", user.getIconImageView().toString());
         model.addAttribute("postInfo", post);
-        return "/postinfo";
+        System.out.println("投稿情報3:"+post.getPostId());
+        return "postInfo";
     }
 	
     /**
@@ -167,7 +171,7 @@ public class loginController {
 		favoriteInfoService.saveAndUpdate(favorite);
 		model.addAttribute("base64AccountIcon", user.getIconImageView().toString());
 		model.addAttribute("postlist", post);
-		return "/toppage";
+		return "toppage";
 	}
 	
     /**
@@ -203,6 +207,7 @@ public class loginController {
     	logger.info("date is {}", dt);
         info.setAccountExpirationDate(dt);
         info.setPasswordExpirationDate(dt);
+        
 
         if(!userAccountAddRequest.getIconImage().isEmpty()) {
             // フォームに渡されたアップロードファイルを取得
@@ -210,7 +215,11 @@ public class loginController {
 
             // アップロード実行処理メソッドの呼び出し
             info.setIconImage(userAccountService.uploadFile(multipartFile));
+        }else {
+        	info.setIconImage(null);
         }
+        
+        info.setDeleteDate(null);
 
         // 店舗情報の登録
         userAccountService.save(info);

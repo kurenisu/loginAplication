@@ -64,10 +64,9 @@
       </div>
       <div >
 		  <a th:href="@{/user/{accountId}/useredit(accountId=*{accountId})}" class="btn btn-primary">編集</a>
-          <a th:href="@{/user/{accountId}/accountdelete(accountId=*{accountId})}" class="btn btn-secondary">アカウント削除</a>
-      </div>
+          <span th:if="${user.accountId != 'admin'}"><a th:href="@{/user/{accountId}/accountdelete(accountId=*{accountId})}" class="btn btn-secondary">アカウント削除</a></span>
   </div>
-  <div class="sidebar">
+  <div class="sidebar mypage">
 	  <ul>
 		  <li class="mypage" style="background-color: antiquewhite;"><a th:href="@{/user/mypage}">マイページ</a></li>
 		  <li class="favorite"><a th:href="@{/user/favorite}">お気に入り</a></li>
