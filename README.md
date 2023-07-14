@@ -47,7 +47,7 @@
        - Spring Framework ver6.0.9
        - Git
    - ER図(データベース設計書)
-     - ![ER Image 1](/loginAolication.png)
+     - ![ER Image 1](/loginAplication.png)
    - AWS構成図
      - ![AWS Image 2](/AWS_login.png)
 ## 2.課題と成長したことについて
